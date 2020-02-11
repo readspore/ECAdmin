@@ -48,9 +48,31 @@ namespace ECAdmin
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                    name: "admin_area",
+                    areaName: "admin",
+                    pattern: "pd-admin/{controller=Panel}/{action=Index}/{id?}"
+                );
+                endpoints.MapAreaControllerRoute(
+                    name: "cabinet_area",
+                    areaName: "cabinet",
+                    pattern: "cabinet/{controller=Info}/{action=Index}/{id?}"
+                );
+                endpoints.MapControllerRoute(
+                    name: "shop",
+                    pattern: "shop/{**slug}",
+                    defaults: new { controller = "Shop", action = "Index" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "product",
+                    pattern: "product/{slug}",
+                    defaults: new { controller = "Product", action = "Index" }
+                );
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                );
+                endpoints.MapFallbackToController("Index", "Taxonomy");
             });
         }
     }
