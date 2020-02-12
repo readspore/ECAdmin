@@ -59,9 +59,9 @@ namespace ECAdmin
                     pattern: "cabinet/{controller=Info}/{action=Index}/{id?}"
                 );
                 endpoints.MapControllerRoute(
-                    name: "shop",
-                    pattern: "shop/{**slug}",
-                    defaults: new { controller = "Shop", action = "Index" }
+                    name: "catalog",
+                    pattern: "catalog/{**slug}",
+                    defaults: new { controller = "Catalog", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
                     name: "product",
