@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECAdmin.ViewModels
+namespace ECAdmin.ViewModels.Authorization
 {
     public class RegisterViewModel
     {
