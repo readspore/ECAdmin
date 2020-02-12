@@ -28,7 +28,7 @@
                         {
                             <li class="nav-item" style="display: flex;">
                                 <p class="nav-link text-dark">@User.Identity.Name</p>
-                                <form method="post" asp-controller="Authorization" asp-action="Logout">
+                                <form method="post" asp-controller="Account" asp-action="Logout">
                                     <input type="submit" value="Выход" />
                                 </form>
                             </li>
@@ -37,13 +37,13 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authorization" asp-action="Login">Вход</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
                             </li>
                             <li class="nav-item">
                                 <p class="nav-link text-dark" >|</p>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authorization" asp-action="Register">Регистрация</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
                             </li>
                         }
                     </ul>

@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ECAdmin.Models;
-using ECAdmin.ViewModels.Authorization;
+using ECAdmin.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ECAdmin.ViewModels.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECAdmin.Controllers
 {
-    public class AuthorizationController : Controller
+    public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public AuthorizationController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -90,6 +90,11 @@ namespace ECAdmin.Controllers
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return Content("Account AccessDenied");
         }
     }
 }
