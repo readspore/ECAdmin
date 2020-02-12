@@ -10,12 +10,12 @@ using ECAdmin.ViewModels.Authorization;
 
 namespace ECAdmin.Controllers
 {
-    public class AccountController : Controller
+    public class AuthorizationController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AuthorizationController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
