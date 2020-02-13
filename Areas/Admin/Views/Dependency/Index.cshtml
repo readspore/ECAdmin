@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Dependency list</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -31,7 +31,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Taxonomy.Id)
+                @Html.DisplayFor(modelItem => item.Taxonomy.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Slug)

@@ -45,7 +45,7 @@ namespace ECAdmin.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Id");
+            ViewBag.Taxonomies = new SelectList(_context.Taxonomies, "Id", "Name");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace ECAdmin.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Id", dependency.TaxonomyId);
+            ViewData["Taxonomy"] = new SelectList(_context.Taxonomies, "Id", "Id", dependency.Taxonomy);
             return View(dependency);
         }
 
@@ -75,7 +75,7 @@ namespace ECAdmin.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Id", dependency.TaxonomyId);
+            ViewBag.Taxonomies = new SelectList(_context.Taxonomies, "Id", "Name");
             return View(dependency);
         }
 
