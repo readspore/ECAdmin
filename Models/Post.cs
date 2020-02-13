@@ -17,7 +17,7 @@ namespace ECAdmin.Models
         public string Status { get; set; } //Options: draft, pending, private and publish
         public string Description { get; set; }
         public string ShortDescription { get; set; }
-        public string ImageId { get; set; }
+        public int ImageId { get; set; }
         [ForeignKey("ImageId")]
         public Image Image { get; set; }
         public List<Product> Products { get; set; }

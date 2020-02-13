@@ -12,6 +12,9 @@ namespace ECAdmin.Models
     {
         public DbSet<Taxonomy> Taxonomies { get; set; }
         public DbSet<Dependency> Dependencies { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Image> Images { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
