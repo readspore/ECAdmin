@@ -1,4 +1,5 @@
-﻿using ECAdmin.ContextInializers;
+﻿using ECAdmin.Models;
+using ECAdmin.ContextInializers;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,14 +19,26 @@ namespace ECAdmin.Models
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
-
             //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+           // Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<PostDependency>()
+                .HasKey(t => new { t.PostId, t.DependencyId });
+
+            builder.Entity<PostDependency>()
+                .HasOne(pc => pc.Post)
+                .WithMany(s => s.PostDependencies)
+                .HasForeignKey(pc => pc.PostId);
+
+            builder.Entity<PostDependency>()
+                .HasOne(pc => pc.Dependency)
+                .WithMany(c => c.PostDependencies)
+                .HasForeignKey(pc => pc.DependencyId);
         }
     }
 }

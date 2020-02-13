@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECAdmin.ViewModels.Roles
+namespace ECAdmin.Areas.Admin.ViewModels.Roles
 {
     public class ChangeRoleViewModel
     {

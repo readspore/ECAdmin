@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ECAdmin.Models;
-using ECAdmin.ViewModels.Roles;
+using ECAdmin.Areas.Admin.ViewModels.Roles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

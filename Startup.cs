@@ -28,7 +28,6 @@ namespace ECAdmin
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
             services.AddControllersWithViews();
@@ -49,7 +48,6 @@ namespace ECAdmin
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthentication();    // подключение аутентификации
@@ -60,7 +58,7 @@ namespace ECAdmin
                 endpoints.MapAreaControllerRoute(
                     name: "admin_area",
                     areaName: "admin",
-                    pattern: "pd-admin/{controller=Panel}/{action=Index}/{id?}"
+                    pattern: "admin/{controller=Panel}/{action=Index}/{id?}"
                 );
                 endpoints.MapAreaControllerRoute(
                     name: "cabinet_area",

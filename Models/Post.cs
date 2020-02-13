@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECAdmin.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -21,5 +22,11 @@ namespace ECAdmin.Models
         [ForeignKey("ImageId")]
         public Image Image { get; set; }
         public List<Product> Products { get; set; }
+
+        public List<PostDependency> PostDependencies { get; set; }
+        public Post()
+        {
+            PostDependencies = new List<PostDependency>();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECAdmin.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -15,8 +16,14 @@ namespace ECAdmin.Models
         public Taxonomy Taxonomy { get; set; }
         public string Slug { get; set; }
         public string Name { get; set; }
-//        public int? ParentDependencyId { get; set; }
+        public int? ParentDependencyId { get; set; }
         public virtual Dependency Parent { get; set; }
         public virtual ICollection<Dependency> Children { get; set; }
+        public List<PostDependency> PostDependencies { get; set; }
+
+        public Dependency()
+        {
+            PostDependencies = new List<PostDependency>();
+        }
     }
 }
