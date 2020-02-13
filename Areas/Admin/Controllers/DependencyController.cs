@@ -10,8 +10,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECAdmin.Areas.Admin.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
     [Authorize(Roles = "admin")]
     [Area("admin")]
     public class DependencyController : Controller
