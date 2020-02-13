@@ -60,4 +60,3 @@ namespace ECAdmin.Models
             }
         }
     }
-}
