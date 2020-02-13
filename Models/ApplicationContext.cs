@@ -12,7 +12,8 @@ namespace ECAdmin.Models
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
     }
 }
