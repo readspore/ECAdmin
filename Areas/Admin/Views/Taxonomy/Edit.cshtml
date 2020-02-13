@@ -1,21 +1,18 @@
-﻿@model ECAdmin.Models.Dependency
+﻿@model ECAdmin.Models.Taxonomy
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
-<h4>Dependency</h4>
+<h4>Taxonomy</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="TaxonomyId" class="control-label"></label>
-                <select asp-for="TaxonomyId" class ="form-control" asp-items="ViewBag.TaxonomyId"></select>
-            </div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Slug" class="control-label"></label>
                 <input asp-for="Slug" class="form-control" />
@@ -27,12 +24,17 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ParentDependencyId" class="control-label"></label>
-                <input asp-for="ParentDependencyId" class="form-control" />
-                <span asp-validation-for="ParentDependencyId" class="text-danger"></span>
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="PostType" class="control-label"></label>
+                <input asp-for="PostType" class="form-control" />
+                <span asp-validation-for="PostType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -10,19 +10,18 @@ using ECAdmin.Models;
 namespace ECAdmin.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class DependencyController : Controller
+    public class TaxonomyController : Controller
     {
         private readonly ApplicationContext _context;
 
-        public DependencyController(ApplicationContext context)
+        public TaxonomyController(ApplicationContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            var applicationContext = _context.Dependencies.Include(d => d.Taxonomy);
-            return View(await applicationContext.ToListAsync());
+            return View(await _context.Taxonomies.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -32,35 +31,32 @@ namespace ECAdmin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var dependency = await _context.Dependencies
-                .Include(d => d.Taxonomy)
+            var taxonomy = await _context.Taxonomies
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (dependency == null)
+            if (taxonomy == null)
             {
                 return NotFound();
             }
 
-            return View(dependency);
+            return View(taxonomy);
         }
 
         public IActionResult Create()
         {
-            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Id");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TaxonomyId,Slug,Name,ParentDependencyId")] Dependency dependency)
+        public async Task<IActionResult> Create([Bind("Id,Slug,Name,Type,PostType")] Taxonomy taxonomy)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(dependency);
+                _context.Add(taxonomy);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Id", dependency.TaxonomyId);
-            return View(dependency);
+            return View(taxonomy);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -70,20 +66,19 @@ namespace ECAdmin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var dependency = await _context.Dependencies.FindAsync(id);
-            if (dependency == null)
+            var taxonomy = await _context.Taxonomies.FindAsync(id);
+            if (taxonomy == null)
             {
                 return NotFound();
             }
-            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Id", dependency.TaxonomyId);
-            return View(dependency);
+            return View(taxonomy);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TaxonomyId,Slug,Name,ParentDependencyId")] Dependency dependency)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Name,Type,PostType")] Taxonomy taxonomy)
         {
-            if (id != dependency.Id)
+            if (id != taxonomy.Id)
             {
                 return NotFound();
             }
@@ -92,12 +87,12 @@ namespace ECAdmin.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(dependency);
+                    _context.Update(taxonomy);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DependencyExists(dependency.Id))
+                    if (!TaxonomyExists(taxonomy.Id))
                     {
                         return NotFound();
                     }
@@ -108,8 +103,7 @@ namespace ECAdmin.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Id", dependency.TaxonomyId);
-            return View(dependency);
+            return View(taxonomy);
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -119,30 +113,29 @@ namespace ECAdmin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var dependency = await _context.Dependencies
-                .Include(d => d.Taxonomy)
+            var taxonomy = await _context.Taxonomies
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (dependency == null)
+            if (taxonomy == null)
             {
                 return NotFound();
             }
 
-            return View(dependency);
+            return View(taxonomy);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var dependency = await _context.Dependencies.FindAsync(id);
-            _context.Dependencies.Remove(dependency);
+            var taxonomy = await _context.Taxonomies.FindAsync(id);
+            _context.Taxonomies.Remove(taxonomy);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DependencyExists(int id)
+        private bool TaxonomyExists(int id)
         {
-            return _context.Dependencies.Any(e => e.Id == id);
+            return _context.Taxonomies.Any(e => e.Id == id);
         }
     }
 }

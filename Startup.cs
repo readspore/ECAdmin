@@ -58,7 +58,7 @@ namespace ECAdmin
                 endpoints.MapAreaControllerRoute(
                     name: "admin_area",
                     areaName: "admin",
-                    pattern: "admin/{controller=Panel}/{action=Index}/{id?}"
+                    pattern: "pd-admin/{controller=Panel}/{action=Index}/{id?}"
                 );
                 endpoints.MapAreaControllerRoute(
                     name: "cabinet_area",
