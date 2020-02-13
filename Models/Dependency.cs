@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECAdmin.Areas.Admin.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -18,5 +19,11 @@ namespace ECAdmin.Models
 //        public int? ParentDependencyId { get; set; }
         public virtual Dependency Parent { get; set; }
         public virtual ICollection<Dependency> Children { get; set; }
+        public List<PostDependency> PostDependencies { get; set; }
+
+        public Dependency()
+        {
+            PostDependencies = new List<PostDependency>();
+        }
     }
 }
