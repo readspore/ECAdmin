@@ -30,6 +30,7 @@ namespace ECAdmin.Models
                         Type = "tree" 
                     }
                 );
+
                 context.SaveChanges();
             }
         }
