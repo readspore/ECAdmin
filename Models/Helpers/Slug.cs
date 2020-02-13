@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ECAdmin.Areas.Admin.Models;
 
 namespace ECAdmin.Models.Helpers
 {

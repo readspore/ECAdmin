@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECAdmin.Areas.Admin.Models
+namespace ECAdmin.Models
 {
     public class PostDependency
     {

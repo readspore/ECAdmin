@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ECAdmin.Areas.Admin.Models;
 using ECAdmin.Models;
 using ECAdmin.Models.Helpers;
 using Microsoft.AspNetCore.Authorization;
@@ -36,14 +35,14 @@ namespace ECAdmin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Dependencies
+            var dependency = await _context.Dependencies
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (dependency == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(dependency);
         }
 
         public IActionResult Create()
@@ -53,19 +52,19 @@ namespace ECAdmin.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Slug")] Dependency category)
+        public async Task<IActionResult> Create([Bind("Id,Name,Slug")] Dependency dependency)
         {
             if (ModelState.IsValid)
             {
-                var rawSlug = category.Slug == null | category.Slug?.Trim().Length != 0
-                            ? category.Name
-                            : category.Slug;
-                category.Slug = Slug.GetUniqSlug(rawSlug, _context.Dependencies.Select(c => c.Slug).ToList());
-                _context.Add(category);
+                var rawSlug = dependency.Slug == null | dependency.Slug?.Trim().Length != 0
+                            ? dependency.Name
+                            : dependency.Slug;
+                dependency.Slug = Slug.GetUniqSlug(rawSlug, _context.Dependencies.Select(c => c.Slug).ToList());
+                _context.Add(dependency);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(dependency);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -75,19 +74,19 @@ namespace ECAdmin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Dependencies.FindAsync(id);
-            if (category == null)
+            var dependency = await _context.Dependencies.FindAsync(id);
+            if (dependency == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(dependency);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Slug")] Dependency category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Slug")] Dependency dependency)
         {
-            if (id != category.Id)
+            if (id != dependency.Id)
             {
                 return NotFound();
             }
@@ -96,12 +95,12 @@ namespace ECAdmin.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(dependency);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!DependencyExists(dependency.Id))
                     {
                         return NotFound();
                     }
@@ -112,7 +111,7 @@ namespace ECAdmin.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(dependency);
         }
         public async Task<IActionResult> Delete(int? id)
         {
@@ -121,26 +120,26 @@ namespace ECAdmin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Dependencies
+            var dependency = await _context.Dependencies
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (dependency == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(dependency);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Dependencies.FindAsync(id);
-            _context.Dependencies.Remove(category);
+            var dependency = await _context.Dependencies.FindAsync(id);
+            _context.Dependencies.Remove(dependency);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        private bool CategoryExists(int id)
+        private bool DependencyExists(int id)
         {
             return _context.Dependencies.Any(e => e.Id == id);
         }

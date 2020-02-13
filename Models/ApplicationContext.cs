@@ -1,4 +1,4 @@
-﻿using ECAdmin.Areas.Admin.Models;
+﻿using ECAdmin.Models;
 using ECAdmin.ContextInializers;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +18,7 @@ namespace ECAdmin.Models
             : base(options)
         {
             //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Cabinet\Data\" />
     <Folder Include="Areas\Cabinet\Models\" />
     <Folder Include="Areas\Cabinet\Views\" />
