@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ECAdmin.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECAdmin.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     [Area("Admin")]
+
     public class TaxonomyController : Controller
     {
         private readonly ApplicationContext _context;

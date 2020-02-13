@@ -6,9 +6,13 @@ using ECAdmin.Models;
 using ECAdmin.Areas.Admin.ViewModels.Roles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECAdmin.Controllers
 {
+    [Authorize(Roles = "admin")]
+    [Area("Admin")]
+
     public class RolesController : Controller
     {
         RoleManager<IdentityRole> _roleManager;
