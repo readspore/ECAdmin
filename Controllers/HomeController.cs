@@ -35,6 +35,7 @@ namespace ECAdmin.Controllers
             //_context.Dependencies.AddRange(dep1_1, dep1_2);
             //_context.SaveChanges();
             //var allDeps = _context.Dependencies.ToList();
+            //var allTaxes = _context.Taxonomies.ToList();
 
             return View();
         }
