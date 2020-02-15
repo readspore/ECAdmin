@@ -96,7 +96,7 @@ namespace ECAdmin.Controllers
         {
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new { area=""});
         }
 
         public IActionResult AccessDenied()

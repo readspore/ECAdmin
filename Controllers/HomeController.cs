@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 namespace ECAdmin.Controllers
 {
-   // [Authorize(Roles = "admin")]
+    // [Authorize(Roles = "admin")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -26,7 +26,9 @@ namespace ECAdmin.Controllers
 
         public IActionResult Index()
         {
-            
+            //Перенаправление на админовский контроллер если залогинин
+            if (HttpContext.User.IsInRole("admin"))
+                return RedirectToAction("Index", "Home", new { area = "Admin"});
             //var tax1 = new Taxonomy { Name = "Категория 1", PostType = "Post", Slug = "category", Type = "tree" };
             //_context.Taxonomies.AddRange(tax1);
             //var dep1 = new Dependency { Name = "Одежда", Slug = "clothes", Taxonomy = tax1 };
@@ -38,8 +40,6 @@ namespace ECAdmin.Controllers
             //_context.SaveChanges();
             //var allDeps = _context.Dependencies.ToList();
             //var allTaxes = _context.Taxonomies.ToList();
-
-
             return View();
         }
 
