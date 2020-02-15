@@ -28,7 +28,6 @@ namespace ECAdmin
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
             services.AddControllersWithViews();
@@ -49,7 +48,6 @@ namespace ECAdmin
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthentication();    // подключение аутентификации

@@ -7,6 +7,7 @@ using ECAdmin.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace ECAdmin.Controllers
 {
@@ -72,7 +73,13 @@ namespace ECAdmin.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        //Перенаправление на админовский контроллер при входе
+                        var user = await _userManager.FindByEmailAsync(model.Email);
+                        var role = await _userManager.GetRolesAsync(user);
+                        if((string)role[0].ToLower()=="admin")
+                            return RedirectToAction("Index", "Home", new { area = "Admin" });
+                        else
+                            return RedirectToAction("Index", "Home");
                     }
                 }
                 else
