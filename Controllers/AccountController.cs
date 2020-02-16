@@ -75,8 +75,8 @@ namespace ECAdmin.Controllers
                     {
                         //Перенаправление на админовский контроллер при входе
                         var user = await _userManager.FindByEmailAsync(model.Email);
-                        var role = await _userManager.GetRolesAsync(user);
-                        if((string)role[0].ToLower()=="admin")
+                        bool role =(await _userManager.GetRolesAsync(user)).ToString().ToLower().Contains("admin");
+                        if (role)
                             return RedirectToAction("Index", "Home", new { area = "Admin" });
                         else
                             return RedirectToAction("Index", "Home");
@@ -96,9 +96,8 @@ namespace ECAdmin.Controllers
         {
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home", new { area=""});
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
-
         public IActionResult AccessDenied()
         {
             return Content("Account AccessDenied");

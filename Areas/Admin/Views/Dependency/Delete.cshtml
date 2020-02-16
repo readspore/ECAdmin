@@ -29,12 +29,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ParentDependencyId)
+        <dt class="col-sm-2">
+            @Html.Raw("Parent Dependency")
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ParentDependencyId)
-        </dd>
+            @Html.DisplayFor(model => model.Parent.Name)
+        </dd class>
     </dl>
     
     <form asp-action="Delete">

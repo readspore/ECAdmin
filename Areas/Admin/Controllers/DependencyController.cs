@@ -6,13 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ECAdmin.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ECAdmin.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "admin")]
     [Area("Admin")]
-
     public class DependencyController : Controller
     {
         private readonly ApplicationContext _context;
@@ -24,7 +21,7 @@ namespace ECAdmin.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var applicationContext = _context.Dependencies.Include(d => d.Taxonomy);
+            var applicationContext = _context.Dependencies.Include(d => d.Parent).Include(d => d.Taxonomy);
             return View(await applicationContext.ToListAsync());
         }
 
@@ -36,6 +33,7 @@ namespace ECAdmin.Areas.Admin.Controllers
             }
 
             var dependency = await _context.Dependencies
+                .Include(d => d.Parent)
                 .Include(d => d.Taxonomy)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dependency == null)
@@ -48,7 +46,8 @@ namespace ECAdmin.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Taxonomies = new SelectList(_context.Taxonomies, "Id", "Name");
+            ViewData["ParentDependencyId"] = new SelectList(_context.Dependencies, "Id", "Name");
+            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Name");
             return View();
         }
 
@@ -62,10 +61,10 @@ namespace ECAdmin.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Taxonomy"] = new SelectList(_context.Taxonomies, "Id", "Id", dependency.Taxonomy);
+            ViewData["ParentDependencyId"] = new SelectList(_context.Dependencies, "Id", "Name", dependency.ParentDependencyId);
+            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Name", dependency.TaxonomyId);
             return View(dependency);
         }
-
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,7 +77,8 @@ namespace ECAdmin.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Taxonomies = new SelectList(_context.Taxonomies, "Id", "Name");
+            ViewData["ParentDependencyId"] = new SelectList(_context.Dependencies, "Id", "Name", dependency.ParentDependencyId);
+            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Name", dependency.TaxonomyId);
             return View(dependency);
         }
 
@@ -111,7 +111,8 @@ namespace ECAdmin.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Id", dependency.TaxonomyId);
+            ViewData["ParentDependencyId"] = new SelectList(_context.Dependencies, "Id", "Name", dependency.ParentDependencyId);
+            ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Name", dependency.TaxonomyId);
             return View(dependency);
         }
 
@@ -123,6 +124,7 @@ namespace ECAdmin.Areas.Admin.Controllers
             }
 
             var dependency = await _context.Dependencies
+                .Include(d => d.Parent)
                 .Include(d => d.Taxonomy)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dependency == null)

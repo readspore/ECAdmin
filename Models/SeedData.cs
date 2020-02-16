@@ -16,7 +16,7 @@ namespace ECAdmin.Models
                 );
             if (context.Taxonomies.Any())
             {
-                return;   // DB has been seeded
+                return;   
             }
 
             context.Taxonomies.AddRange(

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace ECAdmin.Models
         public string Slug { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
+        [Display(Name = "Post Type")]
         public string PostType { get; set; }
         public List<Dependency> Dependencies { get; set; }
     }

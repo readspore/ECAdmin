@@ -1,0 +1,88 @@
+﻿<nav class="mt-2" id="pd-left-nav-side-bar">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item has-treeview">
+            <a class="nav-link ">
+                <p>
+                    Roles
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+                <li class="nav-item">
+                    <a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>All</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="Admin" asp-controller="Roles" asp-action="Create" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Create</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item has-treeview">
+            <a class="nav-link ">
+                <p>
+                    Dependencies
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+                <li class="nav-item">
+                    <a asp-area="Admin" asp-controller="Dependency" asp-action="Index" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>All</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="Admin" asp-controller="Dependency" asp-action="Create" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Create</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item has-treeview">
+            <a class="nav-link ">
+                <p>
+                    Taxonomies
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+                <li class="nav-item">
+                    <a asp-area="Admin" asp-controller="Taxonomy" asp-action="Index" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>All</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="Admin" asp-controller="Taxonomy" asp-action="Create" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Create</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<code>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            pdSetActivePageLeftSideBar();
+        });
+        function pdSetActivePageLeftSideBar() {
+            $('#pd-left-nav-side-bar a').each((i, a) => {
+                if (a.href === window.location.pathname || a.href === window.location.href) {
+                    $(a).addClass('active');
+                    $(a).closest('.nav-item.has-treeview').find('a:eq(0)').addClass('active');
+                    $(a).closest('.nav-item.has-treeview').addClass('menu-open ');
+                    $(a).closest('.nav.nav-treeview').css('display', 'block');
+                }
+            })
+        };
+    </script>
+</code>
