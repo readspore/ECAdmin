@@ -10,25 +10,25 @@ namespace ECAdmin.Models
 {
     public class Dependency
     {
+        [ScaffoldColumn(false)]
         public int Id { get; set; }
-        [Display(Name = "Taxonomy Id")]
+        [Display(Name = "Название")]
+        public string Name { get; set; }
+        [Display(Name = "Идентификатор")]
+        public string Slug { get; set; }
+        [Display(Name = "Таксономия")]
         public int TaxonomyId { get; set; }
         
         [ForeignKey("TaxonomyId")]
+        [Display(Name = "Таксономия")]
         public Taxonomy Taxonomy { get; set; }
-        public string Slug { get; set; }
-        public string Name { get; set; }
-        [Display(Name = "Parent Dependency Id")]
+        [Display(Name = "Наследуется")]
         public int? ParentDependencyId { get; set; }
 
         [ForeignKey("ParentDependencyId")]
+        [Display(Name = "Наследуется")]
         public virtual Dependency Parent { get; set; }
         public virtual ICollection<Dependency> Children { get; set; }
-        public List<PostDependency> PostDependencies { get; set; }
-
-        public Dependency()
-        {
-            PostDependencies = new List<PostDependency>();
-        }
+        public virtual List<PostDependency> PostDependency { get; set; }
     }
 }

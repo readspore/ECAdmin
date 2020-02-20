@@ -6,15 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ECAdmin.Models;
+using Microsoft.AspNetCore.Authorization;
+using ECAdmin.Models.Helpers;
 
 namespace ECAdmin.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     [Area("Admin")]
-    public class DependencyController : Controller
+    public class DependenciesController : Controller
     {
         private readonly ApplicationContext _context;
 
-        public DependencyController(ApplicationContext context)
+        public DependenciesController(ApplicationContext context)
         {
             _context = context;
         }
@@ -53,10 +56,14 @@ namespace ECAdmin.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TaxonomyId,Slug,Name,ParentDependencyId")] Dependency dependency)
+        public async Task<IActionResult> Create([Bind("Name,Slug,TaxonomyId,ParentDependencyId")] Dependency dependency)
         {
             if (ModelState.IsValid)
             {
+                var rawSlug = dependency.Slug == null | dependency.Slug?.Trim().Length != 0
+                            ? dependency.Name
+                            : dependency.Slug;
+                dependency.Slug = Slug.GetUniqSlug(rawSlug, _context.Dependencies.Select(c => c.Slug).ToList());
                 _context.Add(dependency);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -65,6 +72,7 @@ namespace ECAdmin.Areas.Admin.Controllers
             ViewData["TaxonomyId"] = new SelectList(_context.Taxonomies, "Id", "Name", dependency.TaxonomyId);
             return View(dependency);
         }
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,7 +92,7 @@ namespace ECAdmin.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TaxonomyId,Slug,Name,ParentDependencyId")] Dependency dependency)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Slug,TaxonomyId,ParentDependencyId")] Dependency dependency)
         {
             if (id != dependency.Id)
             {

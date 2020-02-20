@@ -1,70 +1,34 @@
 ﻿<nav class="mt-2" id="pd-left-nav-side-bar">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item has-treeview">
-            <a class="nav-link ">
-                <p>
-                    Roles
-                    <i class="right fas fa-angle-left"></i>
-                </p>
+        <li class="nav-item">
+            <a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Roles</p>
             </a>
-            <ul class="nav nav-treeview" style="display: none;">
-                <li class="nav-item">
-                    <a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="nav-link ">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>All</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-area="Admin" asp-controller="Roles" asp-action="Create" class="nav-link ">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Create</p>
-                    </a>
-                </li>
-            </ul>
         </li>
-        <li class="nav-item has-treeview">
-            <a class="nav-link ">
-                <p>
-                    Dependencies
-                    <i class="right fas fa-angle-left"></i>
-                </p>
+        <li class="nav-item">
+            <a asp-area="Admin" asp-controller="Taxonomies" asp-action="Index" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Taxonomies</p>
             </a>
-            <ul class="nav nav-treeview" style="display: none;">
-                <li class="nav-item">
-                    <a asp-area="Admin" asp-controller="Dependency" asp-action="Index" class="nav-link ">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>All</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-area="Admin" asp-controller="Dependency" asp-action="Create" class="nav-link ">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Create</p>
-                    </a>
-                </li>
-            </ul>
         </li>
-        <li class="nav-item has-treeview">
-            <a class="nav-link ">
-                <p>
-                    Taxonomies
-                    <i class="right fas fa-angle-left"></i>
-                </p>
+        <li class="nav-item">
+            <a asp-area="Admin" asp-controller="Dependencies" asp-action="Index" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Dependencies</p>
             </a>
-            <ul class="nav nav-treeview" style="display: none;">
-                <li class="nav-item">
-                    <a asp-area="Admin" asp-controller="Taxonomy" asp-action="Index" class="nav-link ">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>All</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-area="Admin" asp-controller="Taxonomy" asp-action="Create" class="nav-link ">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Create</p>
-                    </a>
-                </li>
-            </ul>
+        </li>
+        <li class="nav-item">
+            <a asp-area="Admin" asp-controller="Posts" asp-action="Index" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Posts</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="nav-link ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Products</p>
+            </a>
         </li>
     </ul>
 </nav>

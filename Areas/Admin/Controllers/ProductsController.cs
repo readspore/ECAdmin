@@ -10,20 +10,21 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ECAdmin.Areas.Admin.Controllers
 {
-    [Area("Admin")]
     [Authorize(Roles = "admin")]
-    public class PostController : Controller
+    [Area("Admin")]
+    public class ProductsController : Controller
     {
         private readonly ApplicationContext _context;
 
-        public PostController(ApplicationContext context)
+        public ProductsController(ApplicationContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.ToListAsync());
+            var applicationContext = _context.Products.Include(p => p.Post);
+            return View(await applicationContext.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -33,32 +34,35 @@ namespace ECAdmin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts
+            var product = await _context.Products
+                .Include(p => p.Post)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (post == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(post);
+            return View(product);
         }
 
         public IActionResult Create()
         {
+            ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Slug,Name,Type")] Post post)
+        public async Task<IActionResult> Create([Bind("RegularPrice,SalePrice,Sku,IsShippigRequired,PostId")] Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(post);
+                _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(post);
+            ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Name", product.PostId);
+            return View(product);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -68,19 +72,20 @@ namespace ECAdmin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts.FindAsync(id);
-            if (post == null)
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(post);
+            ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Name", product.PostId);
+            return View(product);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Name,Type")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("RegularPrice,SalePrice,Sku,IsShippigRequired,PostId")] Product product)
         {
-            if (id != post.Id)
+            if (id != product.Id)
             {
                 return NotFound();
             }
@@ -89,12 +94,12 @@ namespace ECAdmin.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(post);
+                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PostExists(post.Id))
+                    if (!ProductExists(product.Id))
                     {
                         return NotFound();
                     }
@@ -105,7 +110,8 @@ namespace ECAdmin.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(post);
+            ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Name", product.PostId);
+            return View(product);
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -115,29 +121,30 @@ namespace ECAdmin.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts
+            var product = await _context.Products
+                .Include(p => p.Post)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (post == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(post);
+            return View(product);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var post = await _context.Posts.FindAsync(id);
-            _context.Posts.Remove(post);
+            var product = await _context.Products.FindAsync(id);
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PostExists(int id)
+        private bool ProductExists(int id)
         {
-            return _context.Posts.Any(e => e.Id == id);
+            return _context.Products.Any(e => e.Id == id);
         }
     }
 }

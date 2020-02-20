@@ -1,0 +1,75 @@
+﻿@model ECAdmin.Areas.Admin.ViewModels.PostImage
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Post</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Post.Id" />
+            <div class="form-group">
+                <label asp-for="Post.Name" class="control-label"></label>
+                <input asp-for="Post.Name" class="form-control" />
+                <span asp-validation-for="Post.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post.Slug" class="control-label"></label>
+                <input asp-for="Post.Slug" class="form-control" />
+                <span asp-validation-for="Post.Slug" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post.Type" class="control-label"></label>
+                <input asp-for="Post.Type" class="form-control" />
+                <span asp-validation-for="Post.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post.Description" class="control-label"></label>
+                <textarea asp-for="Post.Description" class="form-control"></textarea>
+                <span asp-validation-for="Post.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post.ShortDescription" class="control-label"></label>
+                <input asp-for="Post.ShortDescription" class="form-control" />
+                <span asp-validation-for="Post.ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post.Image" class="control-label"></label>
+                <img src=@Model.Post.Image.Src alt=@Model.Post.Image.Alt id="myimage" height="200">
+                <input asp-for="file" type="file" class="form-control" onchange="onFileSelected(event)">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    function onFileSelected(event) {
+  var selectedFile = event.target.files[0];
+  var reader = new FileReader();
+
+  var imgtag = document.getElementById("myimage");
+  imgtag.title = selectedFile.name;
+
+  reader.onload = function(event) {
+    imgtag.src = event.target.result;
+  };
+
+  reader.readAsDataURL(selectedFile);
+    }
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

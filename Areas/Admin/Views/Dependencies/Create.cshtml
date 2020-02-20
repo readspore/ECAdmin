@@ -13,8 +13,9 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="TaxonomyId" class="control-label">Taxonomy</label>
-                <select asp-for="TaxonomyId" class ="form-control" asp-items="ViewBag.TaxonomyId"></select>
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Slug" class="control-label"></label>
@@ -22,12 +23,11 @@
                 <span asp-validation-for="Slug" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="TaxonomyId" class="control-label"></label>
+                <select asp-for="TaxonomyId" class ="form-control" asp-items="ViewBag.TaxonomyId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="ParentDependencyId" class="control-label">Parent Dependency</label>
+                <label asp-for="ParentDependencyId" class="control-label"></label>
                 <select asp-for="ParentDependencyId" class ="form-control" asp-items="ViewBag.ParentDependencyId"></select>
             </div>
             <div class="form-group">

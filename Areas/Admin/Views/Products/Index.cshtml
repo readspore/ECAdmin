@@ -1,10 +1,10 @@
-﻿@model IEnumerable<ECAdmin.Models.Dependency>
+﻿@model IEnumerable<ECAdmin.Models.Product>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Products</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,16 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Taxonomy)
+                @Html.DisplayNameFor(model => model.RegularPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Slug)
+                @Html.DisplayNameFor(model => model.SalePrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Sku)
             </th>
             <th>
-                @Html.Raw("Parent Dependency")
+                @Html.DisplayNameFor(model => model.IsShippigRequired)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Post)
             </th>
             <th></th>
         </tr>
@@ -31,16 +34,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Taxonomy.Name)
+                @Html.DisplayFor(modelItem => item.RegularPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Slug)
+                @Html.DisplayFor(modelItem => item.SalePrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Sku)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Parent.Name)
+                @Html.DisplayFor(modelItem => item.IsShippigRequired)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

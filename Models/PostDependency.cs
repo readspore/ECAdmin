@@ -1,10 +1,4 @@
-﻿using ECAdmin.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ECAdmin.Models
+﻿namespace ECAdmin.Models
 {
     public class PostDependency
     {

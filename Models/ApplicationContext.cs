@@ -14,6 +14,8 @@ namespace ECAdmin.Models
         public DbSet<Taxonomy> Taxonomies { get; set; }
         public DbSet<Dependency> Dependencies { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Image> Images { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
@@ -30,12 +32,12 @@ namespace ECAdmin.Models
 
             builder.Entity<PostDependency>()
                 .HasOne(pc => pc.Post)
-                .WithMany(s => s.PostDependencies)
+                .WithMany(s => s.PostDependency)
                 .HasForeignKey(pc => pc.PostId);
 
             builder.Entity<PostDependency>()
                 .HasOne(pc => pc.Dependency)
-                .WithMany(c => c.PostDependencies)
+                .WithMany(c => c.PostDependency)
                 .HasForeignKey(pc => pc.DependencyId);
         }
     }
